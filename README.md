@@ -1,6 +1,6 @@
-## Set Android Only CSS PoC
+## Set Android Safe Area Inset workaround PoC
 
-This Poc attempts to apply some css only on android webviews only
+This PoC attempts to declare some CSS that will only be applied on Android Webview's
 
 ### Conclusion
 
