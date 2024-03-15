@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="description" content="Webpage description goes here"/>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <style>
+        body {
+            height: 100vh;
+            background: green;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        .bottom-text {
+            /*            margin-top: constant(safe-area-inset-top); // iOS 11*/
+            /*            margin-bottom: 100px;*/
+            /*            margin-bottom: 100px;*/
+            margin-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <p>TOP</p>
+    <p class="bottom-text">Some text that shouldn't be covered</p>
+</div>
+
+<script>
+</script>
+
+</body>
+</html>
