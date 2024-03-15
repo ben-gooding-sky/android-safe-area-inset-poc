@@ -8,16 +8,16 @@ For a normal webpage this is possible using CSS `vars`
 
 It is done by injecting this css var in the android webview with 
 ```javaScript
-    document.documentElement.style.setProperty('--isAndroid', 1)
+document.documentElement.style.setProperty('--isAndroid', 1)
 ```
 
 and set the CSS with
 ```css
-    @container style(--isAndroid: 1) {
-        .bottom-text {
-                margin-bottom: 50px;
-        }
+@container style(--isAndroid: 1) {
+    .bottom-text {
+            margin-bottom: 50px;
     }
+}
 ```
 
 #### Iframe Limitation
