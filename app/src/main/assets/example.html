@@ -24,11 +24,12 @@
             flex-direction: column;
             justify-content: space-between
         }
-
-        .bottom-text {
-<!--                        margin-bottom: 50px;-->
-            margin-bottom: env(safe-area-inset-bottom);
+        @container style(--isAndroid: 1) {
+            .bottom-text {
+                    margin-bottom: 50px;
+            }
         }
+
     </style>
 </head>
 
