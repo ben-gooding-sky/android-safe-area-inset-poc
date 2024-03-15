@@ -1,25 +1,19 @@
 package com.example.android_only_webview_padding_poc
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
 import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.debugInspectorInfo
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.webkit.WebResourceErrorCompat
 import androidx.webkit.WebViewClientCompat
@@ -41,6 +35,16 @@ class MainActivity : ComponentActivity() {
                 super.onReceivedError(view, request, error)
                 Log.d("JS CALLBACK ERROR", "${error.errorCode}, ${error.description}")
             }
+            override fun shouldInterceptRequest(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): WebResourceResponse? {
+                val req = super.shouldInterceptRequest(view, request)
+                req?.apply {
+                    req.responseHeaders["Access-Control-Allow-Origin"] = "*";
+                }
+                return req
+            }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
@@ -61,7 +65,6 @@ class MainActivity : ComponentActivity() {
                 Log.d("JS CALLBACK CONSOLE", "${consoleMessage?.message()}")
                 return temp
             }
-
         }
 
 
@@ -80,8 +83,8 @@ class MainActivity : ComponentActivity() {
                                 settings.javaScriptEnabled = true
 
                                 // This only works because I'm using a file URL :(
-                                // No work around
-                                settings.allowFileAccessFromFileURLs = testWithIframe
+                                // No work around - CORS must be disabled for this to work with iframes
+                                // settings.allowFileAccessFromFileURLs = testWithIframe
                                 webChromeClient = MyChromeClient()
                             }
                             return@AndroidView webView
@@ -99,21 +102,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndroidonlywebviewpaddingpocTheme {
-        Greeting("Android")
     }
 }
